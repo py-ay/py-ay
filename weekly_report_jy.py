@@ -4,12 +4,12 @@ import sys
 import datetime
 import re
 
-if len(sys.argv) == 3:
+if len(sys.argv) == 2:
 	original_file = sys.argv[1]	# 주간보고 텍스트 파일
-	pattern_file = sys.argv[2]	# 주간보고 변환 규칙 파일
+	#pattern_file = sys.argv[2]	# 주간보고 변환 규칙 파일
 else:
 	original_file = str(datetime.date.today()) + ".txt"	# 없으면 오늘날짜
-	pattern_file = "weekly_report_pattern.txt"
+	#pattern_file = "weekly_report_pattern.txt"
 
 # [TODO] 패턴 파일을 읽어와서 변경하는 것으로 바꾸기
 
