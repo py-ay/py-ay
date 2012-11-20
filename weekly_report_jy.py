@@ -4,32 +4,37 @@ import sys
 import datetime
 import re
 
-if len(sys.argv) == 2:
+if len(sys.argv) == 3:
 	original_file = sys.argv[1]	# 주간보고 텍스트 파일
-	#pattern_file = sys.argv[2]	# 주간보고 변환 규칙 파일
+	pattern_file = sys.argv[2]	# 주간보고 변환 규칙 파일
+elif len(sys.argv) == 2:
+	original_file = sys.argv[1]
+	pattern_file = "pattern.txt"
 else:
 	original_file = str(datetime.date.today()) + ".txt"	# 없으면 오늘날짜
-	#pattern_file = "weekly_report_pattern.txt"
+	pattern_file = "pattern.txt"
 
-# [TODO] 패턴 파일을 읽어와서 변경하는 것으로 바꾸기
+result_file =  original_file[0:original_file.rfind('.')] + "_output.txt"
 
-original_contents = ''
+# 패턴 파일 형식
+# pattern|replacement - 라인단위로 읽어서 튜플로 저장하기
 
-for line in open(original_file):
-	original_contents += line
+new_contents = ''
 
-new_contents = original_contents
+for content in open(original_file):
+	new_contents += content
 
-# 개행을 <p></p>로 변경용
-pattern = re.compile('([^\n]*)\n')
-new_contents = pattern.sub(r'<p>\1</p>', new_contents)
+for line in open(pattern_file):
+	fields = line.split("\t")
+	pattern = re.compile(fields[0])
+	replacement = fields[1].replace("\r", "").replace("\n", "")
+	new_contents = pattern.sub(replacement, new_contents)
 
-# 빈 <p> 처리
-pattern = re.compile('<p></p>')
-new_contents = pattern.sub(r'<p>&nbsp;</p>', new_contents)
+# default font family, size 
+new_contents = '<div style="font-size: 9pt; font-family: 나눔고딕, NanumGothic, sans-serif;">' + new_contents + '</div>'
 
-# 내용에 따라 글짜 스타일 적용
-pattern = re.compile('(\[이번주 할 일\])')
-new_contents = pattern.sub(r'<span style="font-weight:bold;color:#ff6c00;">\1</span>', new_contents)
+fOut = open(result_file, "w")
 
-print new_contents
+print >>fOut, new_contents
+
+fOut.close()

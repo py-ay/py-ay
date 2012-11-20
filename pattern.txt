@@ -1,0 +1,9 @@
+(\[이번주[\s]*할[\s]*일\])	<span style="font-size:12pt;font-weight:bold;color:#ff6c00;">\1</span>	
+(\[이번주[\s]*한[\s]*일\])	<span style="font-size:12pt;font-weight:bold;color:#009e25;">\1</span>	
+(\[다음주[\s]*할[\s]*일\])	<span style="font-size:12pt;font-weight:bold;color:#3a32c3;">\1</span>	
+(\[이슈\])	<span style="font-size:12pt;font-weight:bold;color:#ff0000;">\1</span>	
+\[([A-Z]*-[0-9]*)\]	[<a href="http://bts1.nhncorp.com/nhnbts/browser/\1">\1</a>]	
+(\(진행[\s]*중[\s]*((?<=\|)[^)]*?)\))	<span style="color:#3a32c3">\1</span>	
+(\(진행[\s]*못[\s]*함[\s]*((?<=\|)[^)]*?)\))	<span style="color:#009e25">\1</span>	
+(\(완료[\s]*((?<=\|)[^)]*?)\))	<span style="color:#ff0000">\1</span>	
+(\(상시[\s]*((?<=\|)[^)]*?)\))	<span style="color:#ff6c00">\1</span>	
