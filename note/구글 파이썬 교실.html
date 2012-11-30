@@ -1,0 +1,452 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Google's Python Class</title>
+
+<link href="style.css" rel="stylesheet" type="text/css">
+<link href="sunburst.css" type="text/css" rel="stylesheet">
+<base target="_blank">
+</head>
+
+<body>
+<h1><a href="http://code.google.com/intl/en/edu/languages/google-python-class/">구글 파이썬교실</a></h1>
+<h2><a href="http://code.google.com/intl/en/edu/languages/google-python-class/introduction.html">도입</a></h2>
+<ul>
+    <li>파이썬은 동적인 언어이며 인터프리터에 의해 실행된다.
+        <ul>
+            <li>변수, 파라미터, 메서드의 타입을 선언하지 않아도 되고</li>
+            <li>컴파일 없이 소스코드가 실행된다.</li>
+            <li>파이썬은 런타임에 모든 값의 타입을 확인하고 코드의 유효성을 표시한다.
+                컴파일 타임에는 코드 확인 작업을 거의 하지 않기 때문에
+                실제로 해당코드를 실행하는 시점에야 오류가 발견된다.
+                파이썬 초보의 오류는 대부분 단순 오타로 인해 발생한다.</li>
+        </ul>
+    </li>
+    <li>파이썬 코드가 동작하는지 확인하려면 <strong>인터프리터에 코드를
+    직접 입력</strong>해보면 된다.
+        <ul>
+            <li><strong>행 종료가 곧 명령문의 종료</strong>를 뜻하며
+                명령문 끝에 세미콜론을 찍을 필요가 없다.
+                (버릇대로 세미콜론을 찍어도 되지만 좋은 스타일은 아니다.)</li>
+            <li>if문의 조건도 괄호로 감쌀 필요가 없다. </li>
+            <li># 문자를 사용하면 행 끝까지 주석처리 된다. 여러 행 주석 구문은 없다.</li>
+            <li>변수를 선언하는 별도의 키워드는 없지만 값을 할당하지 않는 변수명에
+            접근하면 오류가 발생한다.</li>
+        </ul>
+    </li>
+</ul>
+<h3>파이썬 프로그램</h3>
+<ul>
+    <li>파이썬 소스파일은 <code>.py</code> 확장자를 사용한다.</li>
+    <li>shell에 다음과 같이 입력하면 <code>hello.py</code> 파일을 열면서 <code>Alice</code>라는 인자를 넘겨준다.
+        <pre class="prettyprint">hello.py Alice</pre>
+    </li>
+</ul>
+<h3>파이썬 모듈</h3>
+<ul>
+    <li>파이썬 파일의 가장 바깥쪽 명령문을 '모듈'이라 한다.</li>
+    <li>모듈을 실행하거나 <code>import</code> 하면 이 명령문이 처음부터 끝까지
+        한번 실행되면서 자신의 변수와 함수를 초기화한다. </li>
+    <li>파이썬 모듈을 직접 실행하면 내부 변수인 <code>__name__</code>에 <code>&quot;__main__&quot;</code> 이라는
+        값이 할당된다. 이를 활용한 분기 처리를 흔히 볼 수 있다.
+        <pre class="prettyprint">if __name__ == '__main__':
+    main()</pre>
+    </li>
+    <li>모듈 실행시 넘겨주는 인자는 <code>sys.argv</code> 라는 <code>list</code>에 담겨진다.
+        <ul>
+            <li><code>sys.argv[0]</code> 실행파일 자신</li>
+            <li><code>sys.argv[1]</code> 첫번째 인자</li>
+        </ul>
+    </li>
+</ul>
+<h3>함수</h3>
+<ul>
+    <li>함수는 <code>def</code> 키워드로 정의한다.
+        <pre class="prettyprint">def funcName(arg1, arg2):
+    """docstring"""
+
+    return result</pre>
+    </li>
+    <li>괄호 안에 지정된 파라미터는 실제로 <code>dict</code>와 같다.
+        <ul>
+            <li><code>dict</code>는
+                순서를 가지지 않는 데이터타입으로, <code>key</code>를 통해 <code>value</code>에
+                접근한다.</li>
+            <li>따라서 다음과 같이 함수를 정의할 때 기본값을 지정하거나</li>
+            <li>파라미터의 순서를 지키지 않고 인자를 넘기는 것이 가능하다.
+                <pre class="prettyprint">def info(obj, spacing=10, collapse=1):
+	pass
+
+info(odbc, 12)
+info(odbc, collpase=1)
+info(spacing=12, obj=odbc)</pre>
+            </li>
+        </ul>
+    </li>
+    <li>함수 안에서 정의한 변수는 함수의 지역변수이다.</li>
+    <li>런타임에 함수는 호출 시점 전에 정의되어야 하기 때문에 <code>main()</code> 함수는
+    일반적으로 파일 맨 마지막에서 정의한다.</li>
+    <li>몇 가지 함수들
+        <ul>
+            <li><code>type()</code> 데이터타입을 반환한다. 유효한 모든 타입값은 <code>types</code> 모듈에 정의되어 있다.</li>
+            <li><code>dir()</code> 객체의 모든 속성명과 메서드명 문자열의 <code>list</code>를 반환한다.</li>
+            <li><code>callable()</code> 객체가 호출 가능한지 여부를 불립값으로 반환한다</li>
+            <li><code>getattr(obj, &quot;methodname&quot;)</code> 으로 메서드에 대한 참조를 가져올 수 있다.
+                <ul>
+                    <li><code>getattr(obj, &quot;methodname&quot;)()</code> 하면 메서드가 실행된다.</li>
+                    <li>문자열에 연산결과를 할당할 수 있으므로 자바스크립트의 <code>obj[&quot;methodname&quot;]()</code> 같이 쓸 수 있다.</li>
+                </ul>
+            </li>
+            <li>파이썬 공식문서: <a href="http://docs.python.org/2/library/functions.html#built-in-functions">Built-in Functions</a></li>
+        </ul>
+    </li>
+</ul>
+<h3>들여쓰기</h3>
+<ul>
+    <li>파이썬의 독특한 특징 중 하나는 들여쓰기로 인해 코드의 의미가 달라진다는 점이다.</li>
+    <li>함수나 if문과 같은 <strong>블럭은 동일한 레벨의 들여쓰기에 의해 정의</strong>되며
+        블럭 내에서 들여쓰기 레벨이 달라지면 구문오류가 발생한다.</li>
+    <li>따라서 탭 대신 <strong>스페이스로 들여쓰기할 것을 권한다</strong>.
+        탭은 매우 복잡한 들여쓰기 체계이며 플랫폼별로 상이한 의미를 가진다.
+        파이썬 공식 스타일가이드에서는 4칸, 구글 내부 가이드라인은 2칸 들여쓰기를 지시하고 있다.</li>
+</ul>
+<h3>overloaded operator</h3>
+<ul>
+    <li><code>*</code> 연산자는 반복자로 다음과 같이 쓸 수 있다.
+        <pre class="prettyprint">s = &quot;string&quot;
+s * 3 == s + s + s
+
+&quot;-&quot; * 30	# 구분선을 쉽게 만들 수 있다
+
+n = 2
+n ** 3 == n * n * n</pre>
+    </li>
+    <li><code>len()</code>은 인자로 받은 데이터의 길이를 반환한다. <code>len</code>을 변수명으로 사용해서는 안된다.
+        <pre class="prettyprint">l = [1, 2, 3, 4, 5]
+len(l) # 5
+
+s = &quot;some string&quot;
+len(s) # 11
+</pre>
+    </li>
+    <li>이렇게 여러 타입에서 다른 방식으로 실행되는 연산자를 &quot;overloaded operator&quot;라고 한다.</li>
+</ul>
+<h3>기타 연산자</h3>
+<ul>
+    <li><code>+</code>, <code>/</code>, <code>*</code>, <code>+=</code>, <code>-=</code> 연산자는
+        동작하지만 <code>++</code>, <code>--</code> 은 동작하지 않는다.</li>
+    <li>정수 나눗셈을 할 때는 슬래시를 두 개 써야 한다. 최근 버전에서는
+        슬래시 하나만 써도 동작하도록 개선되었지만 정수 연산이라는 사실을 확실히
+        표시하는 의미에서 두 개 쓰는 걸 권한다.</li>
+    <li>논리 연산자는 <code>and</code>, <code>or</code>, <code>not</code>으로
+        풀어쓴다. <code>&amp;&amp;</code>, <code>||</code>, <code>!</code> 연산자는 지원하지 않는다.</li>
+</ul>
+<h3>변수명</h3>
+<ul>
+    <li>파이썬은 소스코드에서 변수의 타입을 선언하지 않기 때문에, <strong>타입을 알아볼 수 있도록
+        변수명을 짓는 것이 좋다</strong>. 변수값의 타입을 까먹어서 오류가 나는 경우가 굉장히 많다.</li>
+</ul>
+<h3>모듈과 import</h3>
+<ul>
+    <li>파이썬 코드 파일 하나를 모듈이라고 한다.
+        <ul>
+            <li><code>binky.py</code>라는 파일이 있다면 <code>binky</code> 모듈</li>
+            <li><code>binky</code> 모듈 안에 정의된 <code>foo</code> 라는 함수를 쓰려면
+                <pre class="prettyprint">import binky
+binky.foo()</pre>
+            </li>
+            <li>모듈명을 안 붙이고 쓰려면 (네임스페이스 충돌 우려로 권하지는 않는다.)
+                <pre class="prettyprint">from binky import foo, bar
+foo()
+bar()
+
+from math import *	# 해당 모듈에 포함된 모든 모듈을 가져온다</pre>
+            </li>
+        </ul>
+    </li>
+    <li>파이썬 표준 설치시 함께 제공되는 다양한 모듈을 '파이썬 스탠다드 라이브러리'라고 부른다.
+        파이썬 공식 홈페이지 <a href="http://docs.python.org/library">http://docs.python.org/library</a>에
+        문서화 되어있다.</li>
+</ul>
+<h3>print</h3>
+<ul>
+    <li>파이썬 버전의 <code>console.log</code></li>
+    <li>인자로 받은 것을 출력한 후 개행한다. 맨 마지막에 <code>,</code>를 붙이면 개행을 생략한다.</li>
+</ul>
+<h3>온라인 도움말과 dir</h3>
+<ul>
+    <li>구글 검색시 검색어 앞에 python을 붙이고 첫번째 검색결과를 보면 대체로 답이다.</li>
+    <li>공식 문서도 잘 되어 있고 초보자를 위한 튜터 메일링리스트도 있다.</li>
+    <li>파이썬 인터프리터에서 <code>help()</code> 함수를 사용해 도움말을 볼 수 있다.</li>
+</ul>
+<h2><a href="http://code.google.com/intl/en/edu/languages/google-python-class/strings.html">파이썬 문자열</a></h2>
+<ul>
+    <li>파이썬의 내장모듈인 <code>str</code>에는 문자열을 처리하는 다양한 기능이 들어있다.
+        구버전 모듈 <code>string</code>의 사용은 추천하지 않는다.</li>
+    <li>문자열 리터럴 - 쌍따옴표와 홑따옴표 모두 가능하며 일반적으로 홑따옴표를 많이 쓴다.</li>
+    <li>여러행 문자열 - 행 끝에 <code>\</code>를 붙이거나 삼중따옴표로 감싼다.</li>
+    <li>파이썬 문자열은 자바와 마찬가지로 <strong>변경불가능</strong>한 객체이다.
+        문자열을 런타임에 변경하는 것은 새로운 연산결과를 같은 변수에 할당하는 것 뿐이다.</li>
+    <li>raw 문자열 - <strong>문자열 리터럴 앞에 <code>r</code>을 붙이면
+        해당 문자열에 백슬래시 이스케이프를 적용하지 않는다</strong>. 정규식 패턴을 정의할 때 유용하다.
+        <pre class="prettyprint">print r'this\t\n and that'
+print 'this\t\n and that'</pre>
+    </li>
+    <li>문자열 결합 - 자바와 달리 <code>+</code> 연산자 사용시 비문자열 타입의 데이터항이  문자열로 자동변환되지 않는다.
+        <ul>
+            <li>비문자열 타입에 <code>str()</code> 함수를 호출하거나</li>
+            <li>문자열 형식화를 사용하면 유형을 강제변환할 수 있다.</li>
+        </ul>
+    </li>
+    <li>특정 문자열 위치 탐색
+        <pre class="prettyprint">s.index('other')	# 찾는 문자열이 없으면 오류가 발생한다
+s.find('other')		# 찾는 문자열이 없으면 -1을 반환한다</pre>
+    </li>
+    <li><code>split</code>과 <code>join</code> 메서드가 <code>list</code>가 아닌 문자열에만 존재한다.
+        <ul>
+            <li>자바스크립트 <code>array.join(&quot;, &quot;)</code>는
+            파이썬에서 <code>&quot;, &quot;.join(list)</code>로 써야 한다.</li>
+            <li>파이썬 커뮤니티 내에서도 이 작동방식에 반대하는 사람이 많다고 한다. </li>
+        </ul>
+    </li>
+    <li>문자열을 이루는 글자 하나 하나를 원소로 가지는 <code>list</code>처럼 사용할 수 있다.
+        <pre class="prettyprint">s = "string"
+s[0] = &quot;s&quot;	# []문법으로 각 글자에 접근할 수 있고 인덱스는 0으로 시작한다
+s[11]		# 인덱스가 유효한 범위를 벗어나면 오류가 발생한다</pre>
+    </li>
+</ul>
+<h3>문자열 형식화</h3>
+<ul>
+    <li>다음과 같이 문자열을 얻어낼 수 있다. 인자로 넘기는 것은 <code>tuple</code>이다.
+        <pre class="prettyprint">"%s and %d" % (s, n)	# format % value</pre>
+    </li>
+    <li><code>tuple</code>을 정의할 때, 원소가 하나밖에 없어도 마지막에 콤마를
+        붙여야 한다. 콤마가 없으면 파이썬은 표현식을 괄호로 감싼 것인지 <code>tuple</code>을
+        정의한 것인지 구별하지 못한다.</li>
+    <li>파이썬에서는 행 종료가 명령문 종료이기 때문에 <code>%</code> 다음에 그냥 개행하면 안된다.
+        <ul>
+            <li><code>tuple</code>을 다음 줄에 쓰고 싶으면 전체 명령문을 괄호로
+                감싸야 하는데, 이 때 괄호는 <code>()</code>, <code>[]</code>, <code>{}</code> 모두 쓸 수 있다. </li>
+            <li>여러행 문자열을 쓸 때처럼 행 끝에 <code>\</code>를 붙여도 된다.</li>
+            <li><code>if</code>문의 조건을 여러 줄에 나누어 쓸 때에도 동일하다.</li>
+            <li><code>dict</code>와 <code>tuple</code>을 정의할 때는 <code>\</code> 없이 개행할 수 있다.</li>
+        </ul>
+    </li>
+    <li>형식화 문자열에 사용할 수 있는 모든 문자 설명: <a href="http://docs.python.org/2/library/stdtypes.html#string-formatting-operations">파이썬 공식 문서: String Formatting Operations</a></li>
+</ul>
+<h3>유니코드</h3>
+<ul>
+    <li>파이썬 소스 코드는 기본적으로 아스키로 인코딩되기 때문에 아스키 코드에서
+        지원하지 않는 글자를 그대로 쓸 수 없다.</li>
+    <li>문자열 앞에 <code>u</code>를 붙이면 유니코드 문자열을 만들 수 있다.
+        <pre class="prettyprint">ustring = u'\u064e'					# 유니코드 문자열 정의
+basestring = ustring.encode('utf-8') == '\xd9\x8e'	# 아스키코드로 변환
+print unicode(basestring, 'utf-8')			# 유니코드 문자열로 변환</pre>
+    </li>
+    <li><code>print</code>는 유니코드 문자열을 완벽하게 처리하지 못하기 때문에
+        유니코드 문자열을 출력하기 전에 <code>encode</code>를 호출해서 쓰는 것이
+        좋다. (파이썬 3에서는 이 문제가 해결되었다.)</li>
+    <li>여러 말이 길었지만 한글을 처리하려면 이런 내용은 다 소용없고 소스 코드의
+    기본 인코딩값을 바꾸는 게 제일 속 편하다.
+    <pre class="prettyprint"># (1) 소스코드 최상단에 다음과 같이 입력한다.
+# -*- coding:utf-8 -*-
+
+# (2) 시스템 기본 인코딩을 변경한다
+import sys
+sys.setdefaultencoding('utf-8')</pre>
+    </li>
+    <li><a href="http://www.python.org/dev/peps/pep-0263/">Defining Python Source Code Encodings</a></li>
+</ul>
+<h2><a href="http://code.google.com/intl/en/edu/languages/google-python-class/lists.html">파이썬 list</a></h2>
+<h3>in 연산자와 루프</h3>
+<ul>
+    <li><code>in</code> 연산자는 인자로 받은 객체 안에 특정 원소가 존재하는지를 불린값으로 반환한다.</li>
+    <li>다음과 같이 <code>list</code> 또는 문자열의 각 원소를 순회할 수 있다
+        <pre class="prettyprint">for i in range(1,6):
+    print i
+    
+for ch in "string":
+    print ch</pre>
+    </li>
+</ul>
+<h3>range</h3>
+<ul>
+    <li><code>range(a,b,c)</code>는 <code>a</code>부터 <code>b-1</code>까지 <code>c</code>만큼씩
+    증가하는 정수를 <code>list</code>로 반환한다.</li>
+    <li><code>list</code>를 생성하지 않고 특정 범위를 반환하는 <code>xrange()</code>라는
+    함수를 사용하면 큰 범위를 순회할 때 성능개선 효과가 있다. 파이썬 3에서는 이 문제가 해결되었다.</li>
+</ul>
+<h3><code>list</code> 메서드</h3>
+<ul>
+    <li><code>append</code>는 인자로 받은 <code>list</code>를 마지막 원소로 추가하고,</li>
+    <li><code>extend</code>는 인자로 받은 <code>list</code>의 원소를 하나씩 추가한다. (<code>list</code> + <code>list</code>와 같음)</li>
+    <li><code>index</code>는 찾는 원소의 인덱스를 반환한다. 찾는 원소가 없으면 오류가 발생한다.</li>
+    <li><code>sort</code>는 원본 <code>list</code>를 오름차순으로 정렬하고 반환하지 않는다
+        <ul>
+            <li><code>sorted</code> 함수는 원본 <code>list</code>를 수정하지 않고 정렬이 반영된 새로운 <code>list</code>를 반환한다. </li>
+            <li><code>list</code>의 메서드가 아닌 전역함수이기 때문에 <code>list</code> 외의 데이터타입에도 쓸 수 있다.</li>
+            <li><code>key={func}</code> 인자를 지정하면 정렬시 해당 함수의 반환값을 사용한다.</li>
+            <li><code>cmp={func}</code> 인자를 지정하면 자바스크립트 배열 정렬과 동일하게 쓸 수 있다.</li>
+            <li><code>sort</code>보다<code> sorted</code>를 추천한다.</li>
+        </ul>
+    </li>
+    <li><code>append</code>, <code>sort</code>, <code>reverse</code>와 같이 배열을 수정하지만 반환하지 않는 메서드 사용시 주의하라.</li>
+    <li><code>[start:end:stride]</code> 구문으로 특정 구간을 <code>slice</code>할 수 있다.</li>
+    <li><code>list[:]</code>은 자바스크립트의 <code>slice</code>와 마찬가지로 <code>list</code> 전체의 복사본을 반환한다.</li>
+    <li><code>list[::-1]</code>은 원소를 역순으로 재정렬한 <code>list</code>를 반환한다.</li>
+    <li>다음과 같이 대괄호 안에 표현식을 사용해 <code>list</code>를 생성할 수 있다
+        <pre class="prettyprint">new_list = [x for x in range(1,6) if x%2==0]</pre>
+    </li>
+</ul>
+<h3>tuple</h3>
+<ul>
+    <li><code>list</code>와 비슷하지만 <strong>변경불가능</strong>한 데이터 타입이다.
+        <ul>
+            <li><code>list</code>보다 빠르다.</li>
+            <li>상수값을 모아놓을 때 쓰면 좋다.</li>
+        </ul>
+    </li>
+    <li>순서를 가지기 때문에 <code>list</code> 접근법을 모두 동일하게 사용할 수 있다.</li>
+    <li>메서드를 가지지 않는다. (원소를 추가, 삭제하거나 원소의 위치를 찾을 수 없다.)</li>
+    <li>변수명 <code>tuple</code>에 값 <code>tuple</code>을 할당하면 변수와 짝지어서 쓸 수 있다.
+        <pre class="prettyprint">(x,y,z) = (1,2,3)
+x=1
+y=2
+z=3
+
+(MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY) = range(7)</pre>
+    </li>
+</ul>
+<h2><a href="http://code.google.com/intl/en/edu/languages/google-python-class/dict-files.html">dict와 파일</a></h2>
+<h3>dict hash table</h3>
+<ul>
+    <li>파이썬에서 키-값 해시테이블 구조를 만드는 데이터타입</li>
+    <li>JSON 객체리터럴과 같은 방법으로 쓴다.</li>
+    <li>키로는 문자열, 숫자, <code>tuple</code>을 쓸 수 있고, 값에는 모든 데이터타입이 가능하다.</li>
+    <li><code>d[k]</code> 로 값을 반환하지만 찾는 원소가 없으면 오류가 발생한다.
+        <ul>
+            <li><code>in</code> 연산자로 확인하거나</li>
+            <li><code>dict.get(key)</code>를 호출하면 해당하는 값 또는 <code>None</code>을 반환한다. </li>
+        </ul>
+    </li>
+    <li><code>dict.items()</code>를 호출하면 모든 값이 <code>tuple</code>로 담긴 <code>list</code>가 반환된다.</li>
+    <li>원소 순회
+        <ul>
+            <li>순서를 가지지 않으므로 원소가 무순위로 나열된다.</li>
+            <li> <code>for k, v in dict.items():</code> 로 루프 안에서 키, 값에 모두 접근할 수 있다.</li>
+        </ul>
+    </li>
+    <li>성능향상을 위한 <code>iterkeys</code>, <code>itervalues</code>, <code>iteritems</code> 메서드도
+    있는데 많이 쓰진 않는다. 파이썬 3에서는 성능 문제가 모두 해결되었다.</li>
+    <li>문자열 형식화 구문에 <code>tuple</code> 대신 <code>dict</code>를 넘길 수 있다.
+        <pre class="prettyprint">"%(name)s is %(age)d years old" % { "name":"Jane", "age":42 }
+# 'Jane is 42 years old'</pre>
+    </li>
+</ul>
+<h3>files</h3>
+<ul>
+    <li><code>open()</code> 함수는 파일을 열고 파일핸들을 반환한다. 두번째 인자값으로 모드를 결정한다.<br>
+        <ul>
+            <li><code> r</code> = 읽기</li>
+            <li><code>w</code> = 쓰기</li>
+            <li><code>a</code> = 추가</li>
+            <li><code>rU</code> = 범용읽기. 플랫폼별로 다른
+            행 종료문자를 <code>\n</code>으로 일괄 변환해준다.</li>
+        </ul>
+    </li>
+    <li>반환된 파일핸들에 <code>for</code> 루프를 돌리면 파이썬이 <code>f.readline()</code>을
+    호출하여 파일 내용을 한 줄씩 읽어들인다.</li>
+    <li><code>f.readlines()</code> - 파일 전체를 한꺼번에 메모리에 읽어들인 후
+    각 행을 <code>list</code>로 반환한다. 대용량 파일을 다룰 경우 성능 문제가 있을 수 있다.</li>
+    <li><code>f.read()</code> - 파일 전체를 하나의 문자열로 읽는다.</li>
+    <li><code>f.write()</code> 로 파일을 쓸 수 있다.
+        <ul>
+            <li><code>print</code> 문도 쓸 수 있지만 문법이 거지같고 유니코드를 완벽히 지원하지 않는다.</li>
+        </ul>
+        <pre class="prettyprint"># 파일 열기
+f = open('foo.txt', 'w')
+
+# 파일 읽어오기
+for line in f:
+    print line,
+
+# 파일 한 줄씩 읽어오기
+for line in f.readlines():
+    print line,
+        
+# 유니코드 파일 읽기
+import codecs
+f = codecs.open('foo.txt', 'rU', 'utf-8')
+for line in f:
+    # 이 루프 안에 유니코드 문자열이 들어온다
+    
+# 파일 쓰기
+f.write(string)
+print &gt;&gt; f, string
+
+f.close()</pre>
+    </li>
+</ul>
+
+
+<h2><a href="http://code.google.com/intl/en/edu/languages/google-python-class/regular-expressions.html">정규식</a></h2>
+<p>보통 이렇게 쓴다<br>
+    match = re.search(pat, str) # returns match object or None<br>
+    if match:<br>
+    print match.group() &lt;- 매칭텍스트가 들어간다<br>
+    print match.group(1) &lt;- 캡처링 그룹 참조</p>
+<p>패턴 앞에 r을 붙이면 패턴 내 백슬래시가 문자열 이스케이프로 처리되지 않아서 편리하다.<br>
+    항상 r을 붙이도록</p>
+<p>패턴탐색은 왼쪽부터 시작하며 수량자는 기본적으로 탐욕스럽게 동작한다.</p>
+<p>re.findall(pat, str) 하면 매칭텍스트를 전역탐색하여 문자열 <code>list</code>로 반환한다.<br>
+    해당 패턴에 캡처링 그룹이 있을 경우 <code>tuple</code> <code>list</code>가 반환된다. <code>tuple</code>에는 풀매치스트링은 없고 그룹만 들어가있다.</p>
+<h3>정규식의 옵션</h3>
+<p>re.IGNORECASE - 대소문자 구별하지 않음<br>
+    re.DOTALL - . 문자가 개행문자까지 매치되도록 지정<br>
+    re.MULTILINE - ^, &amp;가 행 첫머리와 끝머리가 아니라 문자열 전체의 첫머리와 끝머리에 매치되도록 지정</p>
+<h3>문자열 대체</h3>
+<p>대체 문자열에서 캡처링 그룹 넘버를 $1 이 아니라 \1 로 쓴다.</p>
+<h2>파이썬 유틸리티</h2>
+<p>파일시스템</p>
+<script src="prettify.js"></script> 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script> 
+<script>
+$(document).ready(function(){
+
+    var report = {
+        init: function(){
+            this.groupContent(2);
+            this.groupContent(3);
+        },
+        groupContent: function(hNum){
+            var selector = this.getLTSelector(hNum);
+            $("h"+hNum).each(function(i){
+                var content = $(this).nextUntil(selector);
+                if(content.length === 1 && content.eq(0).hasClass("inner")) { return; }
+                content.wrapAll('<div class="inner c'+hNum+'" />');
+            });
+        },
+        getLTSelector: function(n){
+            var a = ["script"];
+            while(n>0){
+                a.push( "h"+ (n--) );
+            }
+            return a.join(",");
+        }
+    };
+
+	report.init();
+	
+	var s = $("h3:last"),
+		t = s.text();
+	if(t == "Summary" || t == "요약"){
+		s.next(".inner.c3").addClass("summary");
+	}
+    
+    prettyPrint();
+});
+
+</script>
+</body>
+</html>
